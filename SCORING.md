@@ -15,3 +15,10 @@ Technique tracks define their own metrics, but all end-to-end tracks report:
 - performance by declared artifact and sample subgroups.
 
 Leaderboard entries must link to a machine-readable result bundle and code or a reproducible execution image. A single aggregate score may summarize a track, but cannot replace the component metrics.
+
+The reference submission contract is `schemas/submission.v0.1.schema.json`. The
+reference implementation in `scripts/score.py` computes Verified Workflow
+Completion Rate only when a case is correct, reproducible, fully evidence
+covered, free of critical/major unsupported claims, expert-accepted, and not an
+abstention. Technique-specific metrics may be added alongside this invariant,
+not substituted for it.

@@ -33,10 +33,18 @@ Every released snapshot has a manifest, dataset card, immutable hashes, data lic
 ## Repository contents
 
 - [`schemas/benchmark-manifest.v0.1.schema.json`](schemas/benchmark-manifest.v0.1.schema.json): benchmark snapshot contract.
+- [`schemas/submission.v0.1.schema.json`](schemas/submission.v0.1.schema.json): per-case system result and audit contract.
 - [`manifests/xrd-synthetic-regression.v0.1.json`](manifests/xrd-synthetic-regression.v0.1.json): honest metadata for the current self-generated XRD regression suite.
 - [`benchmark-card.md`](benchmark-card.md): proposal template for a new track or snapshot.
 - [`SCORING.md`](SCORING.md): reporting and comparison requirements.
 - [`scripts/validate.py`](scripts/validate.py): dependency-free repository conformance check.
+- [`scripts/score.py`](scripts/score.py): executable reference scorer for Verified Workflow Completion Rate and component metrics.
+
+Score the example submission:
+
+```bash
+python scripts/score.py examples/xrd-synthetic-submission.v0.1.json
+```
 
 ## A score is not enough
 
