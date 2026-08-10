@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sciphys.org/benchmark-submission/v0.1.json",
+  "title": "SciPhys Benchmark Submission v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "benchmark", "system", "cases"],
+  "properties": {
+    "schemaVersion": { "const": "sciphys.benchmark-submission.v0.1" },
+    "benchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "partition"],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" },
+        "partition": { "enum": ["synthetic-regression", "public-dev", "public-test", "challenge", "hidden-holdout"] }
+      }
+    },
+    "system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "environment", "toolVersions"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "model": { "type": "string" },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "environment": { "type": "string", "minLength": 1 },
+        "toolVersions": { "type": "object" }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "taskCorrect", "reproducible", "evidenceCoverage", "unsupportedClaims", "expertDecision", "abstained", "cost"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "taskCorrect": { "type": "boolean" },
+          "reproducible": { "type": "boolean" },
+          "evidenceCoverage": { "type": "number", "minimum": 0, "maximum": 1 },
+          "unsupportedClaims": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["critical", "major", "minor"],
+            "properties": {
+              "critical": { "type": "integer", "minimum": 0 },
+              "major": { "type": "integer", "minimum": 0 },
+              "minor": { "type": "integer", "minimum": 0 }
+            }
+          },
+          "expertDecision": { "enum": ["accept", "revise", "reject", "not-reviewed"] },
+          "abstained": { "type": "boolean" },
+          "cost": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["latencySeconds", "toolCalls"],
+            "properties": {
+              "latencySeconds": { "type": "number", "minimum": 0 },
+              "toolCalls": { "type": "integer", "minimum": 0 },
+              "inputTokens": { "type": "integer", "minimum": 0 },
+              "outputTokens": { "type": "integer", "minimum": 0 },
+              "estimatedUsd": { "type": "number", "minimum": 0 }
+            }
+          },
+          "artifactUri": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

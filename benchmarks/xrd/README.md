@@ -1,18 +1,9 @@
-# XRD Benchmark Track
+# XRD evaluation track
 
-The XRD track evaluates phase identification and evidence quality.
+The XRD track is the first reference design for evaluating parser behavior, phase evidence, quantitative analysis, agent decisions, and claim integrity.
 
-Priority cases:
+Proposed public real-data strata include single phase, mixtures, trace impurities, preferred orientation, substrate peaks, fluorescence/background, low signal-to-noise, broad/nanocrystalline peaks, amorphous content, wavelength variation, and vendor-format variants. Each stratum needs sufficient independent samples to report uncertainty and cannot be represented by one demonstration file.
 
-1. Clean single-phase ZnO.
-2. Strong preferred orientation ZnO.
-3. BiFeO3 with impurity peaks.
-4. TiO2 anatase/rutile mixture.
-5. Thin film on substrate.
-6. Low-SNR nanoparticle pattern.
-7. Broad amorphous background.
-8. Bruker RAW v4 parser variants.
-9. Rigaku SmartLab RAW variants.
-10. PANalytical XRDML variants.
+Core outputs include parse diagnostics, normalized measurement, detected peaks with parameters, ranked candidates and alternatives, unmatched observations, missing strong references, fit/residual artifacts where applicable, uncertainty, limitations, and an Evidence Bundle.
 
-Each case should include expected phases, known artifacts, and privacy review.
+Synthetic cases in `sciphys-os` are currently regression fixtures only. This track must not make real-world accuracy claims until licensed external measurements are frozen, expert reviewed, and released with reproducible baselines.

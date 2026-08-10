@@ -1,44 +1,61 @@
 # SciPhys Bench
 
-Open benchmarks for experimental materials and physics analysis.
+[![Validate benchmark contracts](https://github.com/sciphys-ai/sciphys-bench/actions/workflows/validate.yml/badge.svg)](https://github.com/sciphys-ai/sciphys-bench/actions/workflows/validate.yml)
 
-SciPhys Bench exists to make AI-for-science claims measurable. The first focus
-is XRD phase identification, where benchmark cases should test evidence quality,
-not just whether the top label looks plausible.
+Open evaluation protocols for trustworthy agents and tools in experimental science.
 
-## Benchmark Philosophy
+SciPhys Bench measures the complete path from instrument bytes to scientific claims. It is deliberately broader than XRD and stricter than a leaderboard built from self-generated fixtures.
 
-Benchmarks should evaluate:
+## What is evaluated
 
-- parser compatibility with real instrument files;
-- phase top-1 and top-3 accuracy;
-- matched and unmatched peak evidence;
-- false impurity detection;
-- substrate and artifact handling;
-- refinement diagnostics such as Rwp, GOF, and residual structure;
-- whether expert feedback can be converted into reusable labels.
+| Level | Target | Representative checks |
+|---|---|---|
+| B0 | Contract conformance | schemas, licenses, hashes, required artifacts |
+| B1 | Format handling | parser success, metadata and unit fidelity, rejection behavior |
+| B2 | Scientific primitives | numerical error, uncertainty calibration, artifact handling |
+| B3 | Technique analysis | labels, estimates, alternatives, false discoveries |
+| B4 | Agent behavior | tool choice, parameter use, abstention, traceability |
+| B5 | End-to-end workflow | evidence coverage, reproducibility, figure and report integrity |
+| B6 | Expert validity | blinded acceptance, severity-weighted unsupported claims |
 
-## Current Tracks
+Tracks can cover spectra, time series, images, volumes, structures, or tabular measurements. The first design track is [XRD](benchmarks/xrd/README.md); proposed Raman and electrochemistry tracks should reuse the same manifest and evidence contracts.
 
-- `benchmarks/xrd/`: XRD phase identification, impurity detection, and parser coverage.
-- `benchmark-card.md`: standard metadata template for new benchmark cases.
+## Dataset partitions
 
-## What Makes a Good Case
+- `synthetic-regression`: public generated cases for deterministic code regressions; never an external accuracy benchmark.
+- `public-dev`: licensed real or synthetic cases with visible labels for method development.
+- `public-test`: frozen, versioned cases with visible scoring and reproducible baselines.
+- `challenge`: time-bounded blind tasks whose labels are released after closure.
+- `hidden-holdout`: governed cases used to test generalization; never committed to this repository.
 
-A good benchmark case has:
+Every released snapshot has a manifest, dataset card, immutable hashes, data license, expert-label protocol, artifact/subgroup tags, scoring version, and DOI when mature. See [DATA_GOVERNANCE.md](DATA_GOVERNANCE.md).
 
-- clear scientific purpose;
-- public, synthetic, or approved data;
-- expected labels and known artifacts;
-- enough metadata to reproduce the result;
-- no private sample, operator, institution, or project identifiers.
+## Repository contents
 
-## Related Repositories
+- [`schemas/benchmark-manifest.v0.1.schema.json`](schemas/benchmark-manifest.v0.1.schema.json): benchmark snapshot contract.
+- [`schemas/submission.v0.1.schema.json`](schemas/submission.v0.1.schema.json): per-case system result and audit contract.
+- [`manifests/xrd-synthetic-regression.v0.1.json`](manifests/xrd-synthetic-regression.v0.1.json): honest metadata for the current self-generated XRD regression suite.
+- [`benchmark-card.md`](benchmark-card.md): proposal template for a new track or snapshot.
+- [`SCORING.md`](SCORING.md): reporting and comparison requirements.
+- [`scripts/validate.py`](scripts/validate.py): dependency-free repository conformance check.
+- [`scripts/score.py`](scripts/score.py): executable reference scorer for Verified Workflow Completion Rate and component metrics.
 
-- [sciphys-os](https://github.com/sciphys-ai/sciphys-os): parser and algorithm implementation.
-- [sciphys-formats](https://github.com/sciphys-ai/sciphys-formats): schemas for benchmark metadata.
-- [sciphys-recipes](https://github.com/sciphys-ai/sciphys-recipes): reproducible workflows.
+Score the example submission:
 
-## License
+```bash
+python scripts/score.py examples/xrd-synthetic-submission.v0.1.json
+```
 
-Apache-2.0.
+## A score is not enough
+
+Submissions report task metrics, 95% uncertainty intervals, repeated-run variance for agents, time/token/tool cost, failure and abstention rates, subgroup performance, evidence coverage, and a signed result artifact. Model, prompt/Skill version, tool versions, environment, and data snapshot must be pinned.
+
+The north-star metric is **Verified Workflow Completion Rate**: the fraction of cases that are correct, reproducible, evidence-covered, free of disallowed unsupported claims, and accepted by the declared review protocol.
+
+## Related repositories
+
+- [sciphys-os](https://github.com/sciphys-ai/sciphys-os): runtime, tools, and Skills.
+- [sciphys-formats](https://github.com/sciphys-ai/sciphys-formats): measurement and Evidence Bundle contracts.
+- [sciphys-recipes](https://github.com/sciphys-ai/sciphys-recipes): reproducible workflow fixtures.
+
+Benchmark code is Apache-2.0. Each dataset has its own declared license.

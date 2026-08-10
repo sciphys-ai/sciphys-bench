@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.sciphys.org/benchmark-manifest/v0.1.json",
+  "title": "SciPhys Benchmark Manifest v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "version", "title", "techniques", "partition", "tasks", "metrics", "data", "review"],
+  "properties": {
+    "schemaVersion": { "const": "sciphys.benchmark-manifest.v0.1" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+    "version": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "techniques": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "modalities": { "type": "array", "items": { "enum": ["signal-1d", "time-series", "raster-2d", "volume-3d", "structure", "tabular"] } },
+    "partition": { "enum": ["synthetic-regression", "public-dev", "public-test", "challenge", "hidden-holdout"] },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "level", "input", "expectedArtifacts"],
+        "properties": {
+          "id": { "type": "string" },
+          "level": { "enum": ["B0", "B1", "B2", "B3", "B4", "B5", "B6"] },
+          "input": { "type": "string" },
+          "expectedArtifacts": { "type": "array", "items": { "type": "string" } },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "metrics": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "data": {
+      "type": "object",
+      "required": ["source", "license", "redistribution", "synthetic"],
+      "properties": {
+        "source": { "type": "string" },
+        "license": { "type": "string" },
+        "redistribution": { "type": "boolean" },
+        "synthetic": { "type": "boolean" },
+        "generator": { "type": "string" },
+        "doi": { "type": "string" },
+        "privacyReview": { "type": "string" }
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": ["groundTruthMethod", "expertCount"],
+      "properties": {
+        "groundTruthMethod": { "type": "string" },
+        "expertCount": { "type": "integer", "minimum": 0 },
+        "adjudication": { "type": "string" },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

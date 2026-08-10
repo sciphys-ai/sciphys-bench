@@ -1,56 +1,46 @@
-# Benchmark Card Template
+# Benchmark card template
 
-Use this template when proposing a new benchmark case.
+## Identity
 
-## Case Name
+- Name and version:
+- Technique and modality family:
+- Task and evaluation level:
+- Maintainers and conflicts of interest:
 
-## Modality
+## Scientific purpose
 
-XRD / Raman / SEM / AFM / spectroscopy / battery / other
+Which real decision or failure mode does the benchmark measure? Define the intended population and what the score must not be used to claim.
 
-## Scientific Challenge
+## Data
 
-Describe the real difficulty:
+- Partition: synthetic-regression / public-dev / public-test / challenge / hidden-holdout
+- Source, DOI, license, and redistribution authority:
+- Instruments, vendors, formats, and acquisition range:
+- Sample/subgroup distribution:
+- Known artifacts and edge cases:
+- Privacy, consent, de-identification, and leakage review:
+- Synthetic generator and relationship to the tested implementation, if applicable:
 
-- multiphase sample;
-- impurity phase;
-- low signal-to-noise;
-- broad peaks;
-- preferred orientation;
-- substrate peaks;
-- fluorescence/background;
-- overlapping phases;
-- instrument parser variant.
+## Ground truth
 
-## Expected Result
+- Annotation protocol and required evidence:
+- Number and expertise of annotators:
+- Blinding and independence:
+- Disagreement and adjudication process:
+- Ambiguous or intentionally unscorable cases:
 
-List expected labels, phases, artifacts, or metrics.
+## Evaluation
 
-## Data Source
+- Required artifacts and Evidence Bundle version:
+- Primary and secondary metrics:
+- Uncertainty interval and repeated-run protocol:
+- Baselines and ablations:
+- Failure, abstention, cost, and subgroup reporting:
+- Acceptance thresholds and prohibited shortcuts:
 
-Public / synthetic / lab-approved anonymized data.
+## Stewardship
 
-## Metadata
-
-- Instrument:
-- Vendor:
-- File format:
-- Radiation/wavelength:
-- Scan range:
-- Step size:
-
-## Privacy Review
-
-- [ ] No private sample name.
-- [ ] No operator name.
-- [ ] No institution path or project path.
-- [ ] Data is approved for public release.
-
-## Suggested Metrics
-
-- Parser success/failure.
-- Top-1 and top-3 accuracy.
-- Matched peak coverage.
-- Unmatched peak count.
-- False impurity count.
-- Rwp / GOF when refinement is applicable.
+- Versioning and change log:
+- Hidden-set custodian and access audit, if applicable:
+- Data removal/correction process:
+- Funding and conflicts:

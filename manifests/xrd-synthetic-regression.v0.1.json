@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "sciphys.benchmark-manifest.v0.1",
+  "id": "xrd.synthetic-regression",
+  "version": "0.1.0",
+  "title": "SciPhys OS XRD synthetic regression suite",
+  "description": "Generated peak lists that guard deterministic phase-matching behavior; not an external scientific benchmark.",
+  "techniques": ["xrd"],
+  "modalities": ["signal-1d", "structure"],
+  "partition": "synthetic-regression",
+  "tasks": [
+    { "id": "single-phase", "level": "B2", "input": "sciphys-os:src/xrd-benchmark.ts", "expectedArtifacts": ["regression-report"], "tags": ["synthetic", "single-phase"] },
+    { "id": "mixture-and-substrate", "level": "B2", "input": "sciphys-os:src/xrd-benchmark.ts", "expectedArtifacts": ["regression-report"], "tags": ["synthetic", "multiphase", "substrate"] }
+  ],
+  "metrics": ["case-pass-rate", "top-1-phase-accuracy", "phase-recall", "strong-peak-coverage", "false-positive-rate"],
+  "data": {
+    "source": "Generated from the same curated reference library used by the system under test",
+    "license": "Apache-2.0",
+    "redistribution": true,
+    "synthetic": true,
+    "generator": "sciphys-os/src/xrd-benchmark.ts",
+    "privacyReview": "No human, lab, or private sample data"
+  },
+  "review": {
+    "groundTruthMethod": "Labels are assigned by the generator from its source reference phase",
+    "expertCount": 0,
+    "adjudication": "None",
+    "limitations": [
+      "Not independent of the implementation reference library",
+      "Does not measure vendor parser coverage or real-world noise",
+      "Must not support external accuracy or state-of-the-art claims"
+    ]
+  }
+}
